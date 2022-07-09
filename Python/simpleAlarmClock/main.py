@@ -1,22 +1,25 @@
 import time
 from playsound import playsound
 
-def waitingTime():
-    hoursToWait = int(input("Hours:"))
-    minutesToWait = int(input("Minutes: "))
-    secondsToWait = int(input("Seconds: "))
-    return (hoursToWait * 3600) + (minutesToWait * 60) + secondsToWait
+
+def waiting_time():
+    hours_to_wait = int(input("Hours:"))
+    minutes_to_wait = int(input("Minutes: "))
+    seconds_to_wait = int(input("Seconds: "))
+    return (hours_to_wait * 3600) + (minutes_to_wait * 60) + seconds_to_wait
 
 
 def wait():
-    time.sleep(waitingTime())
+    time.sleep(waiting_time())
+
 
 def alarm():
     wait()
     playsound('alarm01.mp3')
 
+
 alarm()
 
 # TODO stopwatch
 # TODO tkinter UI
-# TODO set an audio alarm
+# TODO figure out why .waw doesn't work
