@@ -4,7 +4,7 @@ window = tk.Tk()
 window.title("Change return")
 
 
-def do_shit():
+def get_change():
     n = float(number.get())
     two_hundreds = int(n / 200)
     n -= (two_hundreds * 200)
@@ -55,6 +55,6 @@ greeting.pack()
 
 number = tk.Entry(width=35)
 number.pack()
-button = tk.Button(text="Calculate change", command=do_shit)
+button = tk.Button(text="Calculate change", command=get_change)
 button.pack()
 window.mainloop()
