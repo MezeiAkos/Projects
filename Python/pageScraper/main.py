@@ -3,6 +3,8 @@ import re
 from bs4 import BeautifulSoup
 import webbrowser
 
+# TODO fix it, the new ejobs site broke everything
+
 
 class Job:
     def __init__(self, name, link, *description):
@@ -73,6 +75,7 @@ get_job_extended_info()
 if input("Kellenek-e a munkak?(y/n)") == 'y':
     f = open("jobFinder.html", "w")
     f.write("""<!DOCTYPE html>
+    
     <html lang="en">
       <head>
         <meta charset="UTF-8">
