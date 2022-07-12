@@ -1,13 +1,5 @@
 import tkinter as tk
-import tkinter.ttk as ttk
 
-window = tk.Tk()
-label = tk.Label(text="Hello, Tkinter",
-                  width=10,
-                  height=10)
-label.pack()
-
-window.mainloop()
 
 class Product:
     def __init__(self, price, product_id, quantity):
