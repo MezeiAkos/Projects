@@ -1,8 +1,8 @@
 import tkinter as tk
 
 window = tk.Tk()
+window.geometry("200x300")
 window.title("Change return")
-
 
 def get_change():
     n = float(number.get())
