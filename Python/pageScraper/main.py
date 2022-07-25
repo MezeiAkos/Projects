@@ -102,4 +102,4 @@ if input("Kellenek-e a munkak?(y/n)") == 'y':
     f.write("""  </body>
 </html>""")
     f.close()
-    webbrowser.open("file://f:/pythonStuff/test/pythonStuff/pageScraper/jobFinder.html", new=2)
+    webbrowser.open("file://f:/Projects/Python/pageScraper/jobFinder.html", new=2)
