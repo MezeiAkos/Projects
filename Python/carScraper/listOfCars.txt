@@ -1,0 +1,31 @@
+alfa-romeo
+ 
+Model: 156    Price: 1000  Year: 2004   Kms: 220000km   Url: https://carzz.ro/schimb-alfa-romeo-156-2004-anunt_3037769.html
+ Model: 159    Price: 4000  Year: 2009   Kms: 303000km   Url: https://carzz.ro/alfa-romeo-159-euro-5-20-jtdm-170-cp-anunt_3146642.html
+ Model: 159    Price: 2900  Year: 2008   Kms: 222000km   Url: https://carzz.ro/alfa-romeo-stare-f-buna-anunt_3146360.html
+ Model: 159    Price: 2700  Year: 2009   Kms: 244000km   Url: https://carzz.ro/alfa-romeo-159-19-combi-anunt_3146232.html
+ Model: 159    Price: 2950  Year: 2008   Kms: 299230km   Url: https://carzz.ro/alfa-romeo-159-anunt_3146192.html
+ Model: Giulietta    Price: 7800  Year: 2010   Kms: 170210km   Url: https://carzz.ro/alfa-romeo-giulietta-14-tb-multiair170-cp-anunt_3146118.html
+ Model: 159    Price: 3800  Year: 2007   Kms: 183000km   Url: https://carzz.ro/alfa-romeo-159-19-jtd-2007-183000km-anunt_3146003.html
+ Model: Stelvio    Price: 29990  Year: 2018   Kms: 95000km   Url: https://carzz.ro/alfa-romeo-stelvio-q4-anunt_3136668.html
+ Model: 147    Price: 1950  Year: 2006   Kms: 170000km   Url: https://carzz.ro/alfa-147-anunt_3136726.html
+ Model: 159    Price: 2150  Year: 2009   Kms: 257898km   Url: https://carzz.ro/alfa-romeo-159-19-2009-anunt_3145691.html
+ Model: 156    Price: 1590  Year: 2005   Kms: 157454km   Url: https://carzz.ro/alfa-romeo-156-18-benzina-unic-proprietar-anunt_3132855.html
+ Model: GT    Price: 3890  Year: 2005   Kms: 184235km   Url: https://carzz.ro/alfa-romeo-gt-anunt_2728613.html
+ Model: 156    Price: 1500  Year: 2004   Kms: 204000km   Url: https://carzz.ro/alfa-romeo-156-sw-anunt_3144814.html
+ Model: 166    Price: 1300  Year: 2000   Kms: 137620km   Url: https://carzz.ro/alfa-romeo-166-anunt_3144662.html
+ Model: Mito    Price: 4800  Year: 2010   Kms: 81000km   Url: https://carzz.ro/alfa-romeo-mito-anunt_1969119.html
+ Model: 159    Price: 2000  Year: 2008   Kms: 300000km   Url: https://carzz.ro/alfa-romeo-159-19jtd-anunt_3143686.html
+ Model: 166    Price: 1052  Year: 2002   Kms: 370000km   Url: https://carzz.ro/alfa-romeo-166-24-jtd-anunt_2929516.html
+ Model: 147    Price: 2150  Year: 2008   Kms: 135249km   Url: https://carzz.ro/alfa-romeo-147-16benzina-anunt_3143504.html
+ Model: Giulietta    Price: 4999  Year: 2010   Kms: 248000km   Url: https://carzz.ro/alfa-romeo-giulietta-finantaregarantielivrare-gratuita-anunt_3130507.html
+ Model: 164    Price: 1194  Year: 1998   Kms: 290000km   Url: https://carzz.ro/alfa-romeo-164-ts-super-anunt_3073316.html
+ Model: 156    Price: 499  Year: 1999   Kms: 156000km   Url: https://carzz.ro/alfa-romeo-156-anunt_1601726.html
+ Model: 147    Price: 3000  Year: 2006   Kms: 105000km   Url: https://carzz.ro/alfa-romeo-147-anunt_3130904.html
+ Model: 159    Price: 3290  Year: 2007   Kms: 245345km   Url: https://carzz.ro/alfa-romeo-159-sedan-18-mpi-140-cp-impression-euro-42007-anunt_3039761.html
+ Model: 166    Price: 1200  Year: 1999   Kms: 130km   Url: https://carzz.ro/alfa-romeo-166-anunt_3059917.html
+ Model: 159    Price: 2300  Year: 2006   Kms: 208000km   Url: https://carzz.ro/alfa-romeo-159-19jtdm-150cp-anunt_3079810.html
+ Model: Crosswagon    Price: 1500  Year: 2007   Kms: 230000km   Url: https://carzz.ro/alfa-romeo-crosswagon-4x4-permanent-motor-19diesel-anunt_3143155.html
+ Model: Giulietta    Price: 5999  Year: 2012   Kms: 86000km   Url: https://carzz.ro/alfa-romeo-giulietta-16d-startstop-2011-anunt_3132251.html
+ Model: Mito    Price: 3100  Year: 2010   Kms: 245000km   Url: https://carzz.ro/alfa-romeo-mito-anunt_3132794.html
+ 
