@@ -1,7 +1,10 @@
 import requests
+import re
 from halo import Halo
 from currency_converter import CurrencyConverter
 from bs4 import BeautifulSoup
+
+
 
 spinner = Halo(text='Loading', spinner='dots')  # initialize spinner so I know if my program froze
 list_of_cars = []  # make global list for all the cars
@@ -67,12 +70,42 @@ class Car:  # create car object
         self.quality = quality
 
 
+def get_more_pages(URL):  # only tested with alfa so far, but it worky worky
+    page_links = []
+    page_links.append(URL)
+    can_find_pages = True
+    while can_find_pages:
+        try:
+            page = requests.get(URL)
+            soup = BeautifulSoup(page.content, "html.parser")
+            results = soup.find("li", class_="next_page")
+            results2 = results.find("a", class_="rounded")
+            newest_page = results2.get('href')
+            page_links.append(newest_page)
+            URL = newest_page
+        except:
+            print("No more pages for given brand")
+            can_find_pages = False
+    print("before delete: ", page_links)
+    if page_links[-1] == "javascript:void(0)":
+        del page_links[-1]
+    print("after delete: ", page_links)
+    return page_links
+
+
 def keyword_correction(keyword):  # TODO do it for more brands
     keyword = keyword.lower()
     word_to_change = ["alfaromeo", "alfa romeo"]
     if keyword in word_to_change:
         keyword = "alfa-romeo"
     return keyword
+
+def print_all_attributes(car):
+    print(f"Brand: {car.brand} \nPrice: {car.price} \nModel: {car.model} \nYear: {car.year} \nKms: {car.kms} \n"
+          f"Fuel: {car.fuel} \nEngine Capacity: {car.engine_capacity} \nPower: {car.power} \n"
+          f"Body type: {car.body_type} \nNumber of doors: {car.doors} \nTransmission: {car.transmission} \n"
+          f"Emissions: {car.emissions} \nCountry of origin: {car.country_of_origin} \nColor: {car.color} \n"
+          f"Quality: {car.quality}\nLink: {car.link}\n ---------- \n")
 
 
 def search(keyword):  # check if searched brand results in useable html page
@@ -99,14 +132,13 @@ def search(keyword):  # check if searched brand results in useable html page
 
 
 def get_car_data(URL):
-
-    #spinner.start()  # start spinner
+    # spinner.start()  # start spinner
     page = requests.get(URL)
     soup = BeautifulSoup(page.content, "html.parser")
     results = soup.find("div", id="extra-fields")
     results2 = results.findAll("div", class_="filter_margin")
     # h2 -> brand, h3 -> model, h4 -> None, h5 -> year, h6 -> kms
-    # TODO combustibil and caroserie has no class, figure out how to get that shit too somehow
+    # TODO combustibil and caroserie has no class, figure out how to get that too somehow
     brand = results2[0].text
     brand = get_brand(brand)
     # print("brand: ", brand)
@@ -125,52 +157,85 @@ def get_car_data(URL):
     price = get_price(price)
     # print("price: ", price)
     # print("------------------")
+    fuel = None
+    caroserie = None
+    color = None
+    fuel = soup.find("div", id="extra-fields")  # TODO make every search in extra-fields for moar speed
+    fuel = fuel.findAll("div", class_="")
+
+    for data in fuel:  # TODO rewrite this since this isn't really looking at fuel anymore
+        try:
+            #print(data)
+            #print("--------")
+            span = data.find("span")
+            #  Trim span
+            span = span.text
+            span = "".join(span.split())
+            span = span.lower()
+            #  Trim span
+            #print("span: ", span)
+            if span == "combustibil":  # TODO change this to dictionary  and maybe rewrite everything to work this way
+                fuel = data.find("a")
+                fuel = fuel.text
+            elif span == "caroserie":
+                caroserie = data.find("a")
+                caroserie = caroserie.text
+            elif span == "culoare":
+                color = data.find("a")
+                color = color.text
+        except:
+            print("Couldn't find a span")
     if price > 100:  # filter out cars for not really for sale, for parts, swaps etc based on low price
-        list_of_cars.append(Car(brand, price, URL, model, year, kms))  # create car object and add to list
+        list_of_cars.append(Car(brand, price, URL, model, year, kms, fuel=fuel, body_type=caroserie, color=color, ))  # create car object and add to list
         print(len(list_of_cars))
 
-#spinner.stop()  # stop spinner
+
+# spinner.stop()  # stop spinner
 
 car_links = []
-f = open("listOfCars.txt", "w")
-if input("Do you want to search all brands? (Warning, will take a lot of time) Y/N" ) == "Y":
-    brands_to_search = [
-        'abarth', 'acura', 'aixam', 'alfa-romeo', 'alta', 'aro', 'astonmartin', 'audi', 'austin', 'bentley',
-        'bmw', 'brilliance', 'bugatti', 'buick', 'cadillac', 'caterham', 'chery', 'chevrolet', 'chrysler',
-        'citroen', 'comarth', 'dacia', 'daewoo', 'daihatsu', 'delorean', 'dkw', 'dodge', 'eagle', 'ferrari',
-        'fiat', 'ford', 'galloper', 'gaz', 'geely', 'gmc', 'gordon', 'grecav', 'gwm', 'holden', 'honda', 'hummer',
-        'hyundai', 'infiniti', 'innocenti', 'isuzu', 'jaguar', 'jeep', 'kaipan', 'kia', 'lada', 'lamborghini',
-        'lancia', 'landrover', 'lexus', 'lincoln', 'lotus', 'lti', 'mahindra', 'marcos', 'maruti', 'maserati',
-        'maybach', 'mazda', 'mercedes-benz', 'mercury', 'mg', 'microcar', 'mini', 'mitsubishi', 'morgan',
-        'moskwicz', 'nissan', 'nsu', 'nysa', 'oldsmobile', 'oltcit', 'opel', 'peugeot', 'plymouth', 'polonez',
-        'pontiac', 'porsche', 'proton', 'raytonfissore', 'renault', 'rolls-royce', 'rover', 'saab', 'santana',
-        'scion', 'seat', 'shuanghuan', 'skoda', 'skywell', 'smart', 'ssangyong', 'staurn', 'subaru', 'suda',
-        'suzuki', 'syrena', 'talbot', 'tarpan', 'tata', 'tatra', 'tavria', 'tesla', 'toyota', 'trabant',
-        'triumph', 'tvr', 'uaz', 'vauxhall', 'volga', 'volkswagen', 'volvo', 'warszawa', 'wartburg', 'yugo',
-        'zaporozec', 'zastawa', 'zuk']
-else:
-    brands_to_search = ["alfa-romeo"]
-for brand in brands_to_search:
-    URL = search(brand)  # search for given brand TODO add models too
-    page = requests.get(URL)
-    soup = BeautifulSoup(page.content, "html.parser")
-    results = soup.find(id="list_cart_holder")
-    try:
-        individual_results = results.findAll("a")
-        print("Cars found in: brand: ",brand," Url: ", URL)
-        for result in individual_results:
-            car_links.append(result.get('href'))  # get all links
+test_mode = False
+if not test_mode:
+    if input("Do you want to search all brands? (Warning, will take a lot of time) Y/N") == "Y":
+        brands_to_search = [
+            'abarth', 'acura', 'aixam', 'alfa-romeo', 'alta', 'aro', 'astonmartin', 'audi', 'austin', 'bentley',
+            'bmw', 'brilliance', 'bugatti', 'buick', 'cadillac', 'caterham', 'chery', 'chevrolet', 'chrysler',
+            'citroen', 'comarth', 'dacia', 'daewoo', 'daihatsu', 'delorean', 'dkw', 'dodge', 'eagle', 'ferrari',
+            'fiat', 'ford', 'galloper', 'gaz', 'geely', 'gmc', 'gordon', 'grecav', 'gwm', 'holden', 'honda', 'hummer',
+            'hyundai', 'infiniti', 'innocenti', 'isuzu', 'jaguar', 'jeep', 'kaipan', 'kia', 'lada', 'lamborghini',
+            'lancia', 'landrover', 'lexus', 'lincoln', 'lotus', 'lti', 'mahindra', 'marcos', 'maruti', 'maserati',
+            'maybach', 'mazda', 'mercedes-benz', 'mercury', 'mg', 'microcar', 'mini', 'mitsubishi', 'morgan',
+            'moskwicz', 'nissan', 'nsu', 'nysa', 'oldsmobile', 'oltcit', 'opel', 'peugeot', 'plymouth', 'polonez',
+            'pontiac', 'porsche', 'proton', 'raytonfissore', 'renault', 'rolls-royce', 'rover', 'saab', 'santana',
+            'scion', 'seat', 'shuanghuan', 'skoda', 'skywell', 'smart', 'ssangyong', 'staurn', 'subaru', 'suda',
+            'suzuki', 'syrena', 'talbot', 'tarpan', 'tata', 'tatra', 'tavria', 'tesla', 'toyota', 'trabant',
+            'triumph', 'tvr', 'uaz', 'vauxhall', 'volga', 'volkswagen', 'volvo', 'warszawa', 'wartburg', 'yugo',
+            'zaporozec', 'zastawa', 'zuk']
+    else:
+        brands_to_search = ["alfa-romeo"]
+    for brand in brands_to_search:
+        URL = search(brand)  # search for given brand TODO add models too
+        asd123 = get_more_pages(URL)
+        for index in range(len(asd123)):  # code to get the second and subsequent pages
+            URL = asd123[index]
+            print("URL: ", URL)
+            print(len(asd123))
+            page = requests.get(URL)
+            soup = BeautifulSoup(page.content, "html.parser")
+            results = soup.find(id="list_cart_holder")
+            try:
+                individual_results = results.findAll("a")
+                print("Cars found in: brand: ", brand, " Url: ", URL)
+                for result in individual_results:
+                    car_links.append(result.get('href'))  # get all links
+            except:
+                print("No cars found in: brand: ", brand, " Url: ", URL)
+                pass
         for link in car_links:
             get_car_data(link)
-    except:
-        print("No cars found in: brand: ", brand, " Url: ", URL)
-        pass
-    f.write(brand)
-    f.write("\n \n")
     for car in list_of_cars:
-        print("Brand: ", car.brand, " Model: ", car.model, " Price: ", car.price)
-        f.write(f"Model: {car.model}    Price: {car.price}  Year: {car.year}   Kms: {car.kms}   Url: {car.link}")
-        f.write("\n ")
-    list_of_cars.clear()
-f.close()
+        print_all_attributes(car)
+else:
+    get_car_data("https://carzz.ro/alfa-romeo-giulietta-anunt_3132877.html")
+    for car in list_of_cars:
+        print_all_attributes(car)
 # TODO make it look at all pages, not just the first
